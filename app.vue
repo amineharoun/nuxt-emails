@@ -19,7 +19,7 @@ const props = defineProps(["mode"]);
 const { data: inboxMails } = await useFetch("/api/inbox");
 const { data: archiveMails } = await useFetch("/api/archive");
 
-const inboxes = useMailsStore();
-inboxes.updateInboxCount(inboxMails.value.mails.length);
-inboxes.updateArchiveCount(archiveMails.value.mails.length);
+const mailStore = useMailsStore();
+mailStore.updateInboxCount(inboxMails.value.mails.length);
+mailStore.updateArchiveCount(archiveMails.value.mails.length);
 </script>

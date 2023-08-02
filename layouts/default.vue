@@ -5,12 +5,12 @@
       <slot />
     </div>
   </div>
-  <Modal v-if="inboxes.isModalOpen" />
+  <Modal v-if="mailStore.isModalOpen" />
 </template>
 
 <script setup>
 import { useMailsStore } from "/store/MailsStore";
-const inboxes = useMailsStore();
+const mailStore = useMailsStore();
 </script>
 
 <style lang="scss">

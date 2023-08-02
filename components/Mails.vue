@@ -43,12 +43,12 @@ const doSelectAll = () => {
     checkedMails.value = [];
   }
 };
-const inboxes = useMailsStore();
+const mailStore = useMailsStore();
 if (props.mode == "inbox") {
-  inboxes.updateInboxCount(mails.value.mails.length);
+  mailStore.updateInboxCount(mails.value.mails.length);
 }
 if (props.mode == "archive") {
-  inboxes.updateArchiveCount(mails.value.mails.length);
+  mailStore.updateArchiveCount(mails.value.mails.length);
 }
 
 const markAsRead = () => {
@@ -63,8 +63,11 @@ const markAsRead = () => {
 };
 
 const openModal = (id) => {
-  inboxes.selectedMail = id;
-  inboxes.isModalOpen = true;
+  let mailIndex = mails.value.mails.findIndex(m => m.id == id);
+  mails.value.mails[mailIndex].read = true;
+
+  mailStore.selectedMail = id;
+  mailStore.isModalOpen = true;
 };
 
 const markAsArchive = () => {
@@ -74,10 +77,10 @@ const markAsArchive = () => {
 
 onMounted(() => {
   window.addEventListener("keydown", (e) => {
-    if (e.key == "r" && checkedMails.value.length > 0 && !inboxes.isModalOpen) {
+    if (e.key == "r" && checkedMails.value.length > 0 && !mailStore.isModalOpen) {
       markAsRead();
     }
-    if (e.key == "a" && checkedMails.value.length > 0 && !inboxes.isModalOpen) {
+    if (e.key == "a" && checkedMails.value.length > 0 && !mailStore.isModalOpen) {
       markAsArchive();
     }
   });

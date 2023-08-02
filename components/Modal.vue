@@ -32,10 +32,10 @@
 <script setup>
 import { ref } from "vue";
 import { useMailsStore } from "/store/MailsStore";
-const inboxes = useMailsStore();
+const mailStore = useMailsStore();
 
 const closeModal = () => {
-  inboxes.isModalOpen = false;
+  mailStore.isModalOpen = false;
 };
 let isActive = ref(false);
 setTimeout(() => {
@@ -43,28 +43,28 @@ setTimeout(() => {
 }, 500);
 onMounted(() => {
   window.addEventListener("keydown", (e) => {
-    if (e.key == "Escape" && inboxes.isModalOpen) {
+    if (e.key == "Escape" && mailStore.isModalOpen) {
       closeModal();
     }
-    if (e.key == "r" && inboxes.isModalOpen) {
+    if (e.key == "r" && mailStore.isModalOpen) {
       markAsRead();
     }
-    if (e.key == "a" && inboxes.isModalOpen) {
+    if (e.key == "a" && mailStore.isModalOpen) {
       markAsArchive();
     }
   });
 });
 
-const { data: mail } = await useFetch("/api/mail/" + inboxes.selectedMail);
+const { data: mail } = await useFetch("/api/mail/" + mailStore.selectedMail);
 
 const markAsRead = () => {
-  // send post request to api with : inboxes.selectedMail
+  // send post request to api with : mailStore.selectedMail
   // reload mails list
   closeModal();
 };
 
 const markAsArchive = () => {
-  // send post request to api with : inboxes.selectedMail
+  // send post request to api with : mailStore.selectedMail
   // reload mails list
   closeModal();
 };
