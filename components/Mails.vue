@@ -5,12 +5,12 @@
       <label for="selectAllBtn">Email Selected ({{ checkedMails.length }})</label>
 
       <div class="mail__action" v-if="checkedMails.length > 0">
-        <button class="mainbtn" type="button" @click="markAsRead">
+        <button class="main-btn" type="button" @click="markAsRead">
           <img src="/icons/action-read.svg" />
           Mark as read (r)
         </button>
 
-        <button class="mainbtn" type="button" @click="markAsArchive">
+        <button class="main-btn" type="button" @click="markAsArchive">
           <img src="/icons/action-archive.svg" />
           Archive (a)
         </button>
