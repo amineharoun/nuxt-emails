@@ -14,25 +14,7 @@ export default defineEventHandler(() => {
         userId: 4,
       },
       {
-        id: 122,
-        title: "Research a topic interested in",
-        read: false,
-        userId: 4,
-      },
-      {
         id: 23,
-        title: "Plan a trip to another country",
-        read: true,
-        userId: 37,
-      },
-      {
-        id: 322,
-        title: "Research a topic interested in",
-        read: false,
-        userId: 4,
-      },
-      {
-        id: 423,
         title: "Plan a trip to another country",
         read: true,
         userId: 37,
