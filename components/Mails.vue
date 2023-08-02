@@ -27,7 +27,7 @@
 
 <script setup>
 import { ref } from "vue";
-import { useMailsCount } from "/store/MailsCount";
+import { useMailsStore } from "/store/MailsStore";
 
 //  fetch the mails
 const props = defineProps(["mode"]);
@@ -43,7 +43,7 @@ const doSelectAll = () => {
     checkedMails.value = [];
   }
 };
-const inboxes = useMailsCount();
+const inboxes = useMailsStore();
 if (props.mode == "inbox") {
   inboxes.updateInboxCount(mails.value.mails.length);
 }

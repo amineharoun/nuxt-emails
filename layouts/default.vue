@@ -9,8 +9,8 @@
 </template>
 
 <script setup>
-import { useMailsCount } from "/store/MailsCount";
-const inboxes = useMailsCount();
+import { useMailsStore } from "/store/MailsStore";
+const inboxes = useMailsStore();
 </script>
 
 <style lang="scss">

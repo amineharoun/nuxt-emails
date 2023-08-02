@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-export const useMailsCount = defineStore("mailsCount", {
+export const useMailsStore = defineStore("mailsStore", {
   state: () => ({
     inbox: 0,
     archive: 0,
