@@ -45,10 +45,10 @@ const doSelectAll = () => {
 };
 const mailStore = useMailsStore();
 if (props.mode == "inbox") {
-  mailStore.updateInboxCount(mails.value.mails.length);
+  mailStore.inboxCount = mails.value.mails.length;
 }
 if (props.mode == "archive") {
-  mailStore.updateArchiveCount(mails.value.mails.length);
+  mailStore.archiveCount = mails.value.mails.length;
 }
 
 const markAsRead = () => {

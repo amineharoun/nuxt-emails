@@ -20,6 +20,6 @@ const { data: inboxMails } = await useFetch("/api/inbox");
 const { data: archiveMails } = await useFetch("/api/archive");
 
 const mailStore = useMailsStore();
-mailStore.updateInboxCount(inboxMails.value.mails.length);
-mailStore.updateArchiveCount(archiveMails.value.mails.length);
+mailStore.inboxCount = inboxMails.value.mails.length;
+mailStore.archiveCount = archiveMails.value.mails.length;
 </script>
