@@ -1,0 +1,23 @@
+@import "/assets/styles/variables";
+
+a {
+  text-decoration: none;
+}
+
+.mainbtn {
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  display: inline-flex;
+  color: $secondaryColor;
+  margin: 0 20px;
+  align-items: center;
+
+  &:hover {
+    color: #121829;
+  }
+
+  & img {
+    margin-right: 12px;
+  }
+}
