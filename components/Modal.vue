@@ -3,7 +3,7 @@
     <div class="modal__content" :class="{ 'modal__content--active': isActive }">
       <div class="modal__content__head">
         <button
-          class="button--action escapebtn"
+          class="action-button escapebtn"
           type="button"
           @click="closeModal"
         >
@@ -12,12 +12,12 @@
         </button>
 
         <div class="modal__content__head__actions">
-          <button class="button--action" type="button" @click="markAsRead">
+          <button class="action-button" type="button" @click="markAsRead">
             <img src="/icons/action-read.svg" />
             Mark as read (r)
           </button>
 
-          <button class="button--action" type="button" @click="markAsArchive">
+          <button class="action-button" type="button" @click="markAsArchive">
             <img src="/icons/action-archive.svg" />
             Archive (a)
           </button>
