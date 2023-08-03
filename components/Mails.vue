@@ -14,12 +14,12 @@
       >
 
       <div class="mail__action" v-if="checkedMails.length > 0">
-        <button class="main-btn" type="button" @click="markAsRead">
+        <button class="button--action" type="button" @click="markAsRead">
           <img src="/icons/action-read.svg" />
           Mark as read (r)
         </button>
 
-        <button class="main-btn" type="button" @click="markAsArchive">
+        <button class="button--action" type="button" @click="markAsArchive">
           <img src="/icons/action-archive.svg" />
           Archive (a)
         </button>

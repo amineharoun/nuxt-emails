@@ -2,18 +2,22 @@
   <div class="modal__wrapper" @click.self="closeModal">
     <div class="modal__content" :class="{ 'modal__content--active': isActive }">
       <div class="modal__content__head">
-        <button class="main-btn escapebtn" type="button" @click="closeModal">
+        <button
+          class="button--action escapebtn"
+          type="button"
+          @click="closeModal"
+        >
           <img src="/icons/action-escape.svg" />
           Close (Esc)
         </button>
 
         <div class="modal__content__head__actions">
-          <button class="main-btn" type="button" @click="markAsRead">
+          <button class="button--action" type="button" @click="markAsRead">
             <img src="/icons/action-read.svg" />
             Mark as read (r)
           </button>
 
-          <button class="main-btn" type="button" @click="markAsArchive">
+          <button class="button--action" type="button" @click="markAsArchive">
             <img src="/icons/action-archive.svg" />
             Archive (a)
           </button>
