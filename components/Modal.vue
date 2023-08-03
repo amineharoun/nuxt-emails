@@ -2,7 +2,7 @@
   <div class="modal__wrapper" @click.self="closeModal">
     <div class="modal__content" :class="{ 'modal__content--active': isActive }">
       <div class="modal__content__head">
-        <button class="main-btn escapebtn" type="button">
+        <button class="main-btn escapebtn" type="button" @click="closeModal">
           <img src="/icons/action-escape.svg" />
           Close (Esc)
         </button>
