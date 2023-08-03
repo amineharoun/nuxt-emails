@@ -1,8 +1,17 @@
 <template>
   <div class="mail">
     <div class="mail__row">
-      <input id="selectAllBtn" v-model="selectAll" @change="doSelectAll" type="checkbox" />
-      <label for="selectAllBtn">Email Selected ({{ checkedMails.length }})</label>
+      <div class="mail__row__check-wrapper">
+        <input
+          id="selectAllBtn"
+          v-model="selectAll"
+          @change="doSelectAll"
+          type="checkbox"
+        />
+      </div>
+      <label for="selectAllBtn"
+        >Email Selected ({{ checkedMails.length }})</label
+      >
 
       <div class="mail__action" v-if="checkedMails.length > 0">
         <button class="main-btn" type="button" @click="markAsRead">
@@ -17,9 +26,16 @@
       </div>
     </div>
 
-    <div class="mail__row mail__item" v-for="p in mails.mails" :key="p.id" :class="{ 'mail__item--unread': !p.read }"
-      @click.self="openModal(p.id)">
-      <input :value="p.id" v-model="checkedMails" type="checkbox" />
+    <div
+      class="mail__row mail__item"
+      v-for="p in mails.mails"
+      :key="p.id"
+      :class="{ 'mail__item--unread': !p.read }"
+      @click.self="openModal(p.id)"
+    >
+      <div class="mail__row__check-wrapper">
+        <input :value="p.id" v-model="checkedMails" type="checkbox" />
+      </div>
       <label @click="openModal(p.id)">{{ p.title }}</label>
     </div>
   </div>
@@ -63,7 +79,7 @@ const markAsRead = () => {
 };
 
 const openModal = (id) => {
-  let mailIndex = mails.value.mails.findIndex(m => m.id == id);
+  let mailIndex = mails.value.mails.findIndex((m) => m.id == id);
   mails.value.mails[mailIndex].read = true;
 
   mailStore.selectedMail = id;
@@ -77,10 +93,18 @@ const markAsArchive = () => {
 
 onMounted(() => {
   window.addEventListener("keydown", (e) => {
-    if (e.key == "r" && checkedMails.value.length > 0 && !mailStore.isModalOpen) {
+    if (
+      e.key == "r" &&
+      checkedMails.value.length > 0 &&
+      !mailStore.isModalOpen
+    ) {
       markAsRead();
     }
-    if (e.key == "a" && checkedMails.value.length > 0 && !mailStore.isModalOpen) {
+    if (
+      e.key == "a" &&
+      checkedMails.value.length > 0 &&
+      !mailStore.isModalOpen
+    ) {
       markAsArchive();
     }
   });
@@ -108,17 +132,19 @@ onMounted(() => {
     height: 60px;
     align-items: center;
     border-bottom: 1px solid #e5e7eb;
-    padding: 0 24px;
+    padding: 0 25px 0 15px;
 
     & label {
       cursor: pointer;
     }
-
+    &__check-wrapper {
+      padding: 10px;
+      margin: 0 10px 0 0;
+    }
     & input[type="checkbox"] {
       -webkit-appearance: none;
       appearance: none;
       background-color: #fff;
-      margin: 0 20px 0 0;
       font: inherit;
       width: 20px;
       height: 20px;
@@ -147,7 +173,6 @@ onMounted(() => {
       background: url("/icons/checkbox.svg") center center transparent no-repeat;
     }
   }
-
 
   &__action {
     margin-left: auto;
