@@ -40,7 +40,7 @@ const closeModal = () => {
 let isActive = ref(false);
 setTimeout(() => {
   isActive.value = true;
-}, 500);
+}, 100);
 onMounted(() => {
   window.addEventListener("keydown", (e) => {
     if (e.key == "Escape" && mailStore.isModalOpen) {
@@ -89,7 +89,7 @@ const markAsArchive = () => {
   border-left: 1px solid #e5e7eb;
   padding: 32px;
   width: 58.75%;
-  transition: 0.2s;
+  transition: all 0.2s cubic-bezier(0.1, 0.7, 0.6, 0.9);
   position: absolute;
   right: -100vw;
 
