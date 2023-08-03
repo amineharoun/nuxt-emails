@@ -10,8 +10,10 @@ export default defineNuxtConfig({
   ],
   app: {
     head: {
+      title: "Haroun - Nuxt Application",
       link: [
-        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500&display=swap" }
+        { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500&display=swap" },
+        { rel: "icon", href: "/images/Logo.svg" }
       ]
     }
   }
