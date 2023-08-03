@@ -115,10 +115,12 @@ const markAsArchive = () => {
     .detailmail__title {
       color: $primaryColor;
       margin-bottom: 20px;
+      font-size: 1.7em;
     }
 
     .detailmail__content {
       color: $secondaryColor;
+      font-size: 1.2em;
     }
   }
 }
