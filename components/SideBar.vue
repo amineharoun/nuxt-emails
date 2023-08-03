@@ -22,7 +22,7 @@
                 stroke-linejoin="round"
               /></svg
             >Inbox
-            <span class="aside__nav_count">{{ mailStore.inboxCount }}</span>
+            <span class="aside__nav__count">{{ mailStore.inboxCount }}</span>
           </NuxtLink>
         </li>
         <li>
@@ -42,7 +42,7 @@
                 stroke-linejoin="round"
               /></svg
             >Archive
-            <span class="aside__nav_count">{{ mailStore.archiveCount }}</span>
+            <span class="aside__nav__count">{{ mailStore.archiveCount }}</span>
           </NuxtLink>
         </li>
       </ul>
@@ -126,10 +126,10 @@ const mailStore = useMailsStore();
         stroke: $secondaryColor;
       }
     }
-  }
 
-  &__nav_count {
-    margin-left: auto;
+    &__count {
+      margin-left: auto;
+    }
   }
 
   &__logout {
