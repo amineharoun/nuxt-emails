@@ -108,25 +108,31 @@ watch(
   }
 );
 
+const handleKeyDown = (e) => {
+  if (
+    e.key === 'r' &&
+    checkedMails.value.length > 0 &&
+    !mailStore.isModalOpen
+  ) {
+    markAsRead();
+  }
+  if (
+    e.key === 'a' &&
+    checkedMails.value.length > 0 &&
+    !mailStore.isModalOpen && props.mode !== 'archive'
+  ) {
+    markAsArchive();
+  }
+};
 
 onMounted(() => {
-  window.addEventListener("keydown", (e) => {
-    if (
-      e.key == "r" &&
-      checkedMails.value.length > 0 &&
-      !mailStore.isModalOpen
-    ) {
-      markAsRead();
-    }
-    if (
-      e.key == "a" &&
-      checkedMails.value.length > 0 &&
-      !mailStore.isModalOpen && props.mode != 'archive'
-    ) {
-      markAsArchive();
-    }
-  });
+  window.addEventListener('keydown', handleKeyDown);
 });
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeyDown);
+});
+
 </script>
 <style lang="scss">
 .mail {
