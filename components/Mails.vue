@@ -51,7 +51,7 @@ const loadMails = async () => {
   return mails;
 };
 
-let mails = await loadMails();
+let mails = ref(await loadMails());
 
 let checkedMails = ref([]);
 const selectAll = ref(false);
@@ -170,9 +170,13 @@ onMounted(() => {
       border: 1px solid #cad6e4;
       border-radius: 5px;
       transform: translateY(-0.075em);
-
+      cursor: pointer;
       display: grid;
       place-content: center;
+    }
+
+    & input[type="checkbox"]:hover {
+      border: 1px solid #aabacc;
     }
 
     & input[type="checkbox"]::before {
