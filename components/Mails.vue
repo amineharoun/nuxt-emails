@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div class="mail__row mail__item" v-for="p in mails.mails" :key="p.id" :class="{ 'mail__item--unread': !p.read }"
+    <div class="mail__row mail__item" v-for="p in mails" :key="p.id" :class="{ 'mail__item--unread': !p.read }"
       @click="openModal(p.id)">
       <div @click.stop class="mail__row__check-wrapper">
         <input :value="p.id" v-model="checkedMails" type="checkbox" />
@@ -33,30 +33,38 @@
 import { ref } from "vue";
 import { useMailsStore } from "/store/MailsStore";
 
-//  fetch the mails
 const props = defineProps(["mode"]);
-const { data: mails } = await useFetch("/api/" + props.mode);
+const mailStore = useMailsStore();
+
+const loadMails = async () => {
+  const { data: mails } = await useFetch(`/api/${props.mode}`, {
+    transform: (_mails) => _mails.mails,
+  });
+
+  //update counts to be viewed in sidebar when page reloading
+  if (props.mode == "inbox") {
+    mailStore.inboxCount = mails.value.length;
+  }
+  if (props.mode == "archive") {
+    mailStore.archiveCount = mails.value.length;
+  }
+  return mails;
+};
+
+const mails = await loadMails();
 
 let checkedMails = ref([]);
 const selectAll = ref(false);
 const doSelectAll = () => {
   if (selectAll.value) {
-    checkedMails.value = mails.value.mails.map((e) => e.id);
+    checkedMails.value = mails.value.map((e) => e.id);
   } else {
     checkedMails.value = [];
   }
 };
 
-const mailStore = useMailsStore();
-if (props.mode == "inbox") {
-  mailStore.inboxCount = mails.value.mails.length;
-}
-if (props.mode == "archive") {
-  mailStore.archiveCount = mails.value.mails.length;
-}
-
 const markAsRead = () => {
-  mails.value.mails.forEach((e) => {
+  mails.value.forEach((e) => {
     if (checkedMails.value.includes(e.id)) {
       e.read = true;
     }
@@ -66,18 +74,21 @@ const markAsRead = () => {
 };
 
 const openModal = (id) => {
-  let mailIndex = mails.value.mails.findIndex((m) => m.id == id);
-  mails.value.mails[mailIndex].read = true;
+  let mailIndex = mails.value.findIndex((m) => m.id == id);
+  mails.value[mailIndex].read = true;
 
   mailStore.selectedMail = id;
   mailStore.isModalOpen = true;
 };
 
 const markAsArchive = () => {
-  mails.value.mails = mails.value.mails.filter(m => !checkedMails.value.includes(m.id));
+  mails.value = mails.value.filter(m => !checkedMails.value.includes(m.id));
 
   // send post request to api with : checkedMails.value
-  // reload mails list
+
+  // reload mails list to get a new list of mails, I simulate loading with a delay of 1 second
+  setTimeout(async () => { checkedMails.value = []; mails = await loadMails(); }, 1000);
+
 };
 
 onMounted(() => {
@@ -92,7 +103,7 @@ onMounted(() => {
     if (
       e.key == "a" &&
       checkedMails.value.length > 0 &&
-      !mailStore.isModalOpen
+      !mailStore.isModalOpen && props.mode != 'archive'
     ) {
       markAsArchive();
     }

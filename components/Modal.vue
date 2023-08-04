@@ -2,11 +2,7 @@
   <div class="modal__wrapper" @click.self="closeModal">
     <div class="modal__content" :class="{ 'modal__content--active': isActive }">
       <div class="modal__content__head">
-        <button
-          class="action-button escapebtn"
-          type="button"
-          @click="closeModal"
-        >
+        <button class="action-button escapebtn" type="button" @click="closeModal">
           <img src="/icons/action-escape.svg" />
           Close (Esc)
         </button>
@@ -59,7 +55,7 @@ onMounted(() => {
   });
 });
 
-const { data: mail } = await useFetch("/api/mail/" + mailStore.selectedMail);
+const { data: mail } = await useFetch(`/api/mail/${mailStore.selectedMail}`);
 
 const markAsRead = () => {
   // send post request to api with : mailStore.selectedMail
