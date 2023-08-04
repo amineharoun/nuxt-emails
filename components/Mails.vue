@@ -78,6 +78,7 @@ const openModal = (id) => {
   mails.value[mailIndex].read = true;
 
   mailStore.selectedMail = id;
+  mailStore.isModalWrapperOpen = true;
   mailStore.isModalOpen = true;
 };
 
@@ -99,7 +100,7 @@ watch(
     if (reloadEventTriggered) {
 
       //reload mails...
-      setTimeout(async () => { mails = await loadMails(); }, 500);
+      setTimeout(async () => { mails = await loadMails(); }, 800);
 
       // Reset the state after executing the function
       mailStore.resetReloadEvent();

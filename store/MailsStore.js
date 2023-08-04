@@ -6,6 +6,7 @@ export const useMailsStore = defineStore("mailsStore", {
     archiveCount: 0,
     selectedMail: null,
     isModalOpen: false,
+    isModalWrapperOpen: false,
     reloadEventTriggered: false
   }),
   actions: {

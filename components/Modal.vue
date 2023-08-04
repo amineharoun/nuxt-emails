@@ -1,34 +1,36 @@
 <template>
-  <div class="modal__wrapper" v-show="mailStore.isModalOpen" @click.self="closeModal">
-    <Transition name="slide-fade">
-      <div class="modal__content" v-if="mailStore.isModalOpen">
-        <div class="modal__content__head">
-          <button class="action-button escapebtn" type="button" @click="closeModal">
-            <img src="/icons/action-escape.svg" />
-            Close (Esc)
-          </button>
-
-          <div class="modal__content__head__actions">
-            <button class="action-button" type="button" @click="markAsRead">
-              <img src="/icons/action-read.svg" />
-              Mark as read (r)
+  <Transition name="fade">
+    <div class="modal__wrapper" v-show="mailStore.isModalWrapperOpen" @click.self="closeModal">
+      <Transition name="slide-left">
+        <div class="modal__content" v-if="mailStore.isModalOpen">
+          <div class="modal__content__head">
+            <button class="action-button escapebtn" type="button" @click="closeModal">
+              <img src="/icons/action-escape.svg" />
+              Close (Esc)
             </button>
 
-            <button class="action-button" type="button" @click="markAsArchive">
-              <img src="/icons/action-archive.svg" />
-              Archive (a)
-            </button>
+            <div class="modal__content__head__actions">
+              <button class="action-button" type="button" @click="markAsRead">
+                <img src="/icons/action-read.svg" />
+                Mark as read (r)
+              </button>
+
+              <button class="action-button" type="button" @click="markAsArchive">
+                <img src="/icons/action-archive.svg" />
+                Archive (a)
+              </button>
+            </div>
+          </div>
+          <div class="modal__content__body">
+            <h2 class="detailmail__title">
+              {{ mail.mail.title }}
+            </h2>
+            <div class="detailmail__content">{{ mail.mail.content }}</div>
           </div>
         </div>
-        <div class="modal__content__body">
-          <h2 class="detailmail__title">
-            {{ mail.mail.title }}
-          </h2>
-          <div class="detailmail__content">{{ mail.mail.content }}</div>
-        </div>
-      </div>
-    </Transition>
-  </div>
+      </Transition>
+    </div>
+  </Transition>
 </template>
 
 <script setup>
@@ -36,8 +38,11 @@ import { ref } from "vue";
 import { useMailsStore } from "/store/MailsStore";
 const mailStore = useMailsStore();
 
+
+
 const closeModal = () => {
   mailStore.isModalOpen = false;
+  setTimeout(() => { mailStore.isModalWrapperOpen = false; }, 200);
 };
 
 onMounted(() => {
@@ -83,6 +88,20 @@ const markAsArchive = () => {
   z-index: 9;
   left: 0;
   top: 0;
+
+  &.fade-enter-active {
+    transition: opacity 0.1s ease;
+  }
+
+  &.fade-leave-active {
+    transition: opacity 0.2s ease;
+  }
+
+  &.fade-enter-from,
+  &.fade-leave-to {
+    opacity: 0;
+  }
+
 }
 
 .modal__content {
@@ -96,16 +115,16 @@ const markAsArchive = () => {
   right: 0;
 
 
-  &.slide-fade-enter-active {
-    transition: all 0.3s ease-out;
+  &.slide-left-enter-active {
+    transition: all 0.2s ease-out;
   }
 
-  &.slide-fade-leave-active {
-    transition: all 0.3s ease-out;
+  &.slide-left-leave-active {
+    transition: all 0.1s ease-out;
   }
 
-  &.slide-fade-enter-from,
-  &.slide-fade-leave-to {
+  &.slide-left-enter-from,
+  &.slide-left-leave-to {
     transform: translateX(100%);
   }
 
