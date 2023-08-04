@@ -65,7 +65,10 @@ const markAsRead = () => {
 
 const markAsArchive = () => {
   // send post request to api with : mailStore.selectedMail
-  // reload mails list
+
+  // reload mails list, we trigger an event using pinia
+  mailStore.triggerReloadEvent();
+
   closeModal();
 };
 </script>

@@ -12,7 +12,7 @@
           Mark as read (r)
         </button>
 
-        <button v-if="props.mode != 'archive'" class="action-button" type="button" @click="markAsArchive">
+        <button class="action-button" type="button" @click="markAsArchive">
           <img src="/icons/action-archive.svg" />
           Archive (a)
         </button>
@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useMailsStore } from "/store/MailsStore";
 
 const props = defineProps(["mode"]);
@@ -90,6 +90,23 @@ const markAsArchive = () => {
   setTimeout(async () => { checkedMails.value = []; mails = await loadMails(); }, 1000);
 
 };
+
+
+// Watch for the reloadEventTriggered state
+watch(
+  () => mailStore.reloadEventTriggered,
+  (reloadEventTriggered) => {
+    if (reloadEventTriggered) {
+
+      //reload mails...
+      setTimeout(async () => { mails = await loadMails(); }, 500);
+
+      // Reset the state after executing the function
+      mailStore.resetReloadEvent();
+    }
+  }
+);
+
 
 onMounted(() => {
   window.addEventListener("keydown", (e) => {
