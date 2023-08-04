@@ -13,9 +13,7 @@
 import { ref } from "vue";
 import { useMailsStore } from "/store/MailsStore";
 
-//  fetch the mails
-const props = defineProps(["mode"]);
-
+//  fetch the mails to get display count in sidebar
 const { data: inboxMails } = await useFetch("/api/inbox");
 const { data: archiveMails } = await useFetch("/api/archive");
 
