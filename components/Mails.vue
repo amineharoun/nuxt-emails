@@ -51,7 +51,7 @@ const loadMails = async () => {
   return mails;
 };
 
-const mails = await loadMails();
+let mails = await loadMails();
 
 let checkedMails = ref([]);
 const selectAll = ref(false);
