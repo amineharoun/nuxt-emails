@@ -34,15 +34,12 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
 import { useMailsStore } from "/store/MailsStore";
 const mailStore = useMailsStore();
 
-
-
 const closeModal = () => {
   mailStore.isModalOpen = false;
-  setTimeout(() => { mailStore.isModalWrapperOpen = false; }, 200);
+  setTimeout(() => { mailStore.isModalWrapperOpen = false; }, 100);
 };
 
 onMounted(() => {
@@ -94,7 +91,7 @@ const markAsArchive = () => {
   }
 
   &.fade-leave-active {
-    transition: opacity 0.2s ease;
+    transition: opacity 0.25s ease;
   }
 
   &.fade-enter-from,
@@ -120,7 +117,7 @@ const markAsArchive = () => {
   }
 
   &.slide-left-leave-active {
-    transition: all 0.1s ease-out;
+    transition: all 0.06s ease-out;
   }
 
   &.slide-left-enter-from,
