@@ -2,16 +2,9 @@
   <div class="mail">
     <div class="mail__row">
       <div class="mail__row__check-wrapper">
-        <input
-          id="selectAllBtn"
-          v-model="selectAll"
-          @change="doSelectAll"
-          type="checkbox"
-        />
+        <input id="selectAllBtn" v-model="selectAll" @change="doSelectAll" type="checkbox" />
       </div>
-      <label for="selectAllBtn"
-        >Email Selected ({{ checkedMails.length }})</label
-      >
+      <label for="selectAllBtn">Email Selected ({{ checkedMails.length }})</label>
 
       <div class="mail__action" v-if="checkedMails.length > 0">
         <button class="action-button" type="button" @click="markAsRead">
@@ -26,17 +19,12 @@
       </div>
     </div>
 
-    <div
-      class="mail__row mail__item"
-      v-for="p in mails.mails"
-      :key="p.id"
-      :class="{ 'mail__item--unread': !p.read }"
-      @click.self="openModal(p.id)"
-    >
-      <div class="mail__row__check-wrapper">
+    <div class="mail__row mail__item" v-for="p in mails.mails" :key="p.id" :class="{ 'mail__item--unread': !p.read }"
+      @click="openModal(p.id)">
+      <div @click.stop class="mail__row__check-wrapper">
         <input :value="p.id" v-model="checkedMails" type="checkbox" />
       </div>
-      <label @click="openModal(p.id)">{{ p.title }}</label>
+      <label>{{ p.title }}</label>
     </div>
   </div>
 </template>
@@ -137,10 +125,12 @@ onMounted(() => {
     & label {
       cursor: pointer;
     }
+
     &__check-wrapper {
       padding: 10px;
       margin: 0 10px 0 0;
     }
+
     & input[type="checkbox"] {
       -webkit-appearance: none;
       appearance: none;
