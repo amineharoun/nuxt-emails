@@ -12,7 +12,7 @@
           Mark as read (r)
         </button>
 
-        <button class="action-button" type="button" @click="markAsArchive">
+        <button v-if="props.mode != 'archive'" class="action-button" type="button" @click="markAsArchive">
           <img src="/icons/action-archive.svg" />
           Archive (a)
         </button>
@@ -35,11 +35,10 @@ import { useMailsStore } from "/store/MailsStore";
 
 //  fetch the mails
 const props = defineProps(["mode"]);
-
 const { data: mails } = await useFetch("/api/" + props.mode);
+
 let checkedMails = ref([]);
 const selectAll = ref(false);
-
 const doSelectAll = () => {
   if (selectAll.value) {
     checkedMails.value = mails.value.mails.map((e) => e.id);
@@ -47,6 +46,7 @@ const doSelectAll = () => {
     checkedMails.value = [];
   }
 };
+
 const mailStore = useMailsStore();
 if (props.mode == "inbox") {
   mailStore.inboxCount = mails.value.mails.length;
@@ -63,7 +63,6 @@ const markAsRead = () => {
   });
 
   // send post request to api with : checkedMails.value
-  // reload mails list
 };
 
 const openModal = (id) => {
@@ -75,6 +74,8 @@ const openModal = (id) => {
 };
 
 const markAsArchive = () => {
+  mails.value.mails = mails.value.mails.filter(m => !checkedMails.value.includes(m.id));
+
   // send post request to api with : checkedMails.value
   // reload mails list
 };
