@@ -5,13 +5,8 @@
       <slot />
     </div>
   </div>
-  <Modal v-if="mailStore.isModalOpen" />
+  <Modal />
 </template>
-
-<script setup>
-import { useMailsStore } from "/store/MailsStore";
-const mailStore = useMailsStore();
-</script>
 
 <style lang="scss">
 @import "/assets/styles/variables";

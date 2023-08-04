@@ -1,31 +1,33 @@
 <template>
-  <div class="modal__wrapper" @click.self="closeModal">
-    <div class="modal__content" :class="{ 'modal__content--active': isActive }">
-      <div class="modal__content__head">
-        <button class="action-button escapebtn" type="button" @click="closeModal">
-          <img src="/icons/action-escape.svg" />
-          Close (Esc)
-        </button>
-
-        <div class="modal__content__head__actions">
-          <button class="action-button" type="button" @click="markAsRead">
-            <img src="/icons/action-read.svg" />
-            Mark as read (r)
+  <div class="modal__wrapper" v-show="mailStore.isModalOpen" @click.self="closeModal">
+    <Transition name="slide-fade">
+      <div class="modal__content" v-if="mailStore.isModalOpen">
+        <div class="modal__content__head">
+          <button class="action-button escapebtn" type="button" @click="closeModal">
+            <img src="/icons/action-escape.svg" />
+            Close (Esc)
           </button>
 
-          <button class="action-button" type="button" @click="markAsArchive">
-            <img src="/icons/action-archive.svg" />
-            Archive (a)
-          </button>
+          <div class="modal__content__head__actions">
+            <button class="action-button" type="button" @click="markAsRead">
+              <img src="/icons/action-read.svg" />
+              Mark as read (r)
+            </button>
+
+            <button class="action-button" type="button" @click="markAsArchive">
+              <img src="/icons/action-archive.svg" />
+              Archive (a)
+            </button>
+          </div>
+        </div>
+        <div class="modal__content__body">
+          <h2 class="detailmail__title">
+            {{ mail.mail.title }}
+          </h2>
+          <div class="detailmail__content">{{ mail.mail.content }}</div>
         </div>
       </div>
-      <div class="modal__content__body">
-        <h2 class="detailmail__title">
-          {{ mail.mail.title }}
-        </h2>
-        <div class="detailmail__content">{{ mail.mail.content }}</div>
-      </div>
-    </div>
+    </Transition>
   </div>
 </template>
 
@@ -37,10 +39,7 @@ const mailStore = useMailsStore();
 const closeModal = () => {
   mailStore.isModalOpen = false;
 };
-let isActive = ref(false);
-setTimeout(() => {
-  isActive.value = true;
-}, 100);
+
 onMounted(() => {
   window.addEventListener("keydown", (e) => {
     if (e.key == "Escape" && mailStore.isModalOpen) {
@@ -59,7 +58,7 @@ const { data: mail } = await useFetch(`/api/mail/${mailStore.selectedMail}`);
 
 const markAsRead = () => {
   // send post request to api with : mailStore.selectedMail
-  // reload mails list
+
   closeModal();
 };
 
@@ -94,10 +93,20 @@ const markAsArchive = () => {
   width: 58.75%;
   transition: all 0.2s cubic-bezier(0.1, 0.7, 0.6, 0.9);
   position: absolute;
-  right: -100vw;
+  right: 0;
 
-  &--active {
-    right: 0;
+
+  &.slide-fade-enter-active {
+    transition: all 0.3s ease-out;
+  }
+
+  &.slide-fade-leave-active {
+    transition: all 0.3s ease-out;
+  }
+
+  &.slide-fade-enter-from,
+  &.slide-fade-leave-to {
+    transform: translateX(100%);
   }
 
   &__head {
