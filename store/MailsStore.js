@@ -6,8 +6,7 @@ export const useMailsStore = defineStore("mailsStore", {
     archiveCount: 0,
     selectedMail: null,
     isModalOpen: false,
-    isModalWrapperOpen: false,
-    reloadEventTriggered: false
+    reloadEventTriggered: false,
   }),
   actions: {
     triggerReloadEvent() {
@@ -16,5 +15,5 @@ export const useMailsStore = defineStore("mailsStore", {
     resetReloadEvent() {
       this.reloadEventTriggered = false;
     },
-  }
+  },
 });

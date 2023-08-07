@@ -1,10 +1,18 @@
 <template>
   <Transition name="fade">
-    <div class="modal__wrapper" v-show="mailStore.isModalWrapperOpen" @click.self="closeModal">
+    <div
+      class="modal__wrapper"
+      v-show="mailStore.isModalOpen"
+      @click.self="closeModal"
+    >
       <Transition name="slide-left">
         <div class="modal__content" v-if="mailStore.isModalOpen">
           <div class="modal__content__head">
-            <button class="action-button escapebtn" type="button" @click="closeModal">
+            <button
+              class="action-button escapebtn"
+              type="button"
+              @click="closeModal"
+            >
               <img src="/icons/action-escape.svg" />
               Close (Esc)
             </button>
@@ -15,7 +23,11 @@
                 Mark as read (r)
               </button>
 
-              <button class="action-button" type="button" @click="markAsArchive">
+              <button
+                class="action-button"
+                type="button"
+                @click="markAsArchive"
+              >
                 <img src="/icons/action-archive.svg" />
                 Archive (a)
               </button>
@@ -39,7 +51,6 @@ const mailStore = useMailsStore();
 
 const closeModal = () => {
   mailStore.isModalOpen = false;
-  setTimeout(() => { mailStore.isModalWrapperOpen = false; }, 100);
 };
 
 onMounted(() => {
@@ -92,13 +103,13 @@ const markAsArchive = () => {
 
   &.fade-leave-active {
     transition: opacity 0.25s ease;
+    transition-delay: 200ms;
   }
 
   &.fade-enter-from,
   &.fade-leave-to {
     opacity: 0;
   }
-
 }
 
 .modal__content {
@@ -111,9 +122,9 @@ const markAsArchive = () => {
   position: absolute;
   right: 0;
 
-
   &.slide-left-enter-active {
     transition: all 0.2s ease-out;
+    transition-delay: 200ms;
   }
 
   &.slide-left-leave-active {

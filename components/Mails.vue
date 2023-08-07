@@ -2,9 +2,16 @@
   <div class="mail">
     <div class="mail__row">
       <div class="mail__row__check-wrapper">
-        <input id="selectAllBtn" v-model="selectAll" @change="doSelectAll" type="checkbox" />
+        <input
+          id="selectAllBtn"
+          v-model="selectAll"
+          @change="doSelectAll"
+          type="checkbox"
+        />
       </div>
-      <label for="selectAllBtn">Email Selected ({{ checkedMails.length }})</label>
+      <label for="selectAllBtn"
+        >Email Selected ({{ checkedMails.length }})</label
+      >
 
       <div class="mail__action" v-if="checkedMails.length > 0">
         <button class="action-button" type="button" @click="markAsRead">
@@ -19,8 +26,13 @@
       </div>
     </div>
 
-    <div class="mail__row mail__item" v-for="p in mails" :key="p.id" :class="{ 'mail__item--unread': !p.read }"
-      @click="openModal(p.id)">
+    <div
+      class="mail__row mail__item"
+      v-for="p in mails"
+      :key="p.id"
+      :class="{ 'mail__item--unread': !p.read }"
+      @click="openModal(p.id)"
+    >
       <div @click.stop class="mail__row__check-wrapper">
         <input :value="p.id" v-model="checkedMails" type="checkbox" />
       </div>
@@ -78,29 +90,30 @@ const openModal = (id) => {
   mails.value[mailIndex].read = true;
 
   mailStore.selectedMail = id;
-  mailStore.isModalWrapperOpen = true;
   mailStore.isModalOpen = true;
 };
 
 const markAsArchive = () => {
-  mails.value = mails.value.filter(m => !checkedMails.value.includes(m.id));
+  mails.value = mails.value.filter((m) => !checkedMails.value.includes(m.id));
 
   // send post request to api with : checkedMails.value
 
   // reload mails list to get a new list of mails, I simulate loading with a delay of 1 second
-  setTimeout(async () => { checkedMails.value = []; mails = await loadMails(); }, 1000);
-
+  setTimeout(async () => {
+    checkedMails.value = [];
+    mails = await loadMails();
+  }, 1000);
 };
-
 
 // Watch for the reloadEventTriggered state
 watch(
   () => mailStore.reloadEventTriggered,
   (reloadEventTriggered) => {
     if (reloadEventTriggered) {
-
       //reload mails...
-      setTimeout(async () => { mails = await loadMails(); }, 800);
+      setTimeout(async () => {
+        mails = await loadMails();
+      }, 800);
 
       // Reset the state after executing the function
       mailStore.resetReloadEvent();
@@ -110,29 +123,29 @@ watch(
 
 const handleKeyDown = (e) => {
   if (
-    e.key === 'r' &&
+    e.key === "r" &&
     checkedMails.value.length > 0 &&
     !mailStore.isModalOpen
   ) {
     markAsRead();
   }
   if (
-    e.key === 'a' &&
+    e.key === "a" &&
     checkedMails.value.length > 0 &&
-    !mailStore.isModalOpen && props.mode !== 'archive'
+    !mailStore.isModalOpen &&
+    props.mode !== "archive"
   ) {
     markAsArchive();
   }
 };
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeyDown);
+  window.addEventListener("keydown", handleKeyDown);
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener('keydown', handleKeyDown);
+  window.removeEventListener("keydown", handleKeyDown);
 });
-
 </script>
 <style lang="scss">
 .mail {
